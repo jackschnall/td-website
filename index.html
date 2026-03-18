@@ -131,12 +131,16 @@ img { max-width:100%; display:block; }
 .cta-dark .btns { display:flex; flex-wrap:wrap; justify-content:center; gap:16px; }
 
 /* PLATFORM HERO */
-.platform-hero { background:linear-gradient(135deg,var(--td-dark),#1e3a5f,#243b56); padding:80px 0 112px; }
+.platform-hero { background:linear-gradient(135deg,var(--td-dark),#1e3a5f,#243b56); padding:80px 0 112px; position:relative; overflow:hidden; }
+.platform-hero .hero-layout { display:grid; grid-template-columns:1fr 1fr; gap:40px; align-items:center; }
+.platform-hero .hero-map { position:relative; display:flex; align-items:center; justify-content:center; }
+.platform-hero .hero-map img { width:100%; max-width:620px; mask-image:radial-gradient(ellipse 80% 80% at center,#000 40%,transparent 72%); -webkit-mask-image:radial-gradient(ellipse 80% 80% at center,#000 40%,transparent 72%); }
 .platform-hero .tag { font-size:14px; font-weight:600; color:#60a5fa; text-transform:uppercase; letter-spacing:.05em; margin-bottom:16px; }
 .platform-hero h1 { font-size:clamp(2rem,4vw,3rem); font-weight:800; color:#fff; line-height:1.15; margin-bottom:24px; max-width:720px; }
 .platform-hero h1 .orange { color:var(--td-orange); }
-.platform-hero > .container > p { font-size:18px; color:rgba(255,255,255,.6); line-height:1.6; max-width:640px; margin-bottom:36px; }
+.platform-hero .hero-layout p { font-size:18px; color:rgba(255,255,255,.6); line-height:1.6; max-width:640px; margin-bottom:36px; }
 .platform-hero .btns { display:flex; flex-wrap:wrap; gap:16px; }
+@media(max-width:1024px) { .platform-hero .hero-layout { grid-template-columns:1fr; } .platform-hero .hero-map { max-width:500px; margin:0 auto; } }
 
 /* PROBLEM / SOLUTION */
 .probsol { padding:96px 0; background:#fff; }
@@ -477,12 +481,19 @@ svg.icon-sm { width:16px; height:16px; }
 <div class="page" id="page-platform">
   <section class="platform-hero">
     <div class="container">
-      <p class="tag">The Platform</p>
-      <h1 class="font-display">Everything you need to manage vendors and <span class="orange">collaborate with peers</span></h1>
-      <p>True Digital brings together the industry&rsquo;s largest banker-verified vendor database, a private peer network, and powerful analytics &mdash; all in one platform designed exclusively for banking professionals.</p>
-      <div class="btns">
-        <a href="#/contact" onclick="go('/contact');return false" class="btn-gold">Schedule a Demo <svg class="icon icon-sm" viewBox="0 0 24 24" style="margin-left:4px"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg></a>
-        <a href="https://app.truedigitalgroup.com/signup" class="btn-outline">Get Started</a>
+      <div class="hero-layout">
+        <div>
+          <p class="tag">The Platform</p>
+          <h1 class="font-display">Everything you need to manage vendors and <span class="orange">collaborate with peers</span></h1>
+          <p>True Digital brings together the industry&rsquo;s largest banker-verified vendor database, a private peer network, and powerful analytics &mdash; all in one platform designed exclusively for banking professionals.</p>
+          <div class="btns">
+            <a href="#/contact" onclick="go('/contact');return false" class="btn-gold">Schedule a Demo <svg class="icon icon-sm" viewBox="0 0 24 24" style="margin-left:4px"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg></a>
+            <a href="https://app.truedigitalgroup.com/signup" class="btn-outline">Get Started</a>
+          </div>
+        </div>
+        <div class="hero-map">
+          <img src="images/platform-map.png" alt="Network map of connected banks across the United States">
+        </div>
       </div>
     </div>
   </section>
