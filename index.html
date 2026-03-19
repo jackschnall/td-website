@@ -314,6 +314,8 @@ svg.icon-sm { width:16px; height:16px; }
   .footer-bottom { flex-direction:column; gap:8px; }
 }
 </style>
+<!-- HubSpot tracking code -->
+<script type="text/javascript" id="hs-script-loader" async defer src="//js.hs-scripts.com/23570965.js"></script>
 </head>
 <body>
 
@@ -997,7 +999,11 @@ function submitToHubSpot(formEl, formGuid, onSuccess) {
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify({
       fields: fields,
-      context: { pageUri: window.location.href, pageName: document.title }
+      context: {
+        hutk: (document.cookie.match(/hubspotutk=([^;]*)/) || [])[1] || undefined,
+        pageUri: window.location.href,
+        pageName: document.title
+      }
     })
   }).then(function(res) {
     return res.json().then(function(data) { return { ok: res.ok, status: res.status, data: data }; });
