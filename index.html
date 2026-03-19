@@ -76,8 +76,7 @@ img { max-width:100%; display:block; }
 /* BANK MARQUEE */
 .marquee-section { padding:40px 0; background:#fff; border-bottom:1px solid rgba(220,225,232,.4); overflow:hidden; }
 .marquee-label { text-align:center; font-size:14px; color:var(--td-muted); margin-bottom:24px; }
-.marquee-track { display:flex; animation:marquee 35s linear infinite; white-space:nowrap; }
-@keyframes marquee { from{transform:translateX(0)} to{transform:translateX(-50%)} }
+.marquee-track { display:flex; white-space:nowrap; will-change:transform; }
 .marquee-item { margin:0 24px; font-size:18px; font-weight:700; color:rgba(95,109,126,.4); text-transform:uppercase; letter-spacing:.05em; white-space:nowrap; padding:12px 28px; }
 
 /* PILLARS */
@@ -920,10 +919,20 @@ svg.icon-sm { width:16px; height:16px; }
 var banks = ["Optus Bank","BankSouth","ABB","Arbor Bank","Thomaston Savings Bank","Sunwest Bank","Bay First","Chesapeake Bank","FNBO","BankOZK","Republic Bank","Seacoast Bank","Paragon","Midland","BancFirst","Vantage Bank","First Merchants"];
 var track = document.getElementById("marqueeTrack");
 var html = "";
-for (var i = 0; i < banks.length * 2; i++) {
+for (var i = 0; i < banks.length * 3; i++) {
   html += '<div class="marquee-item">' + banks[i % banks.length] + '</div>';
 }
 track.innerHTML = html;
+// Measure one set of items and animate by that exact pixel width
+requestAnimationFrame(function() {
+  var items = track.children;
+  var oneSetWidth = 0;
+  for (var i = 0; i < banks.length; i++) oneSetWidth += items[i].offsetWidth + 48;
+  var style = document.createElement("style");
+  style.textContent = "@keyframes marquee{from{transform:translateX(0)}to{transform:translateX(-" + oneSetWidth + "px)}}";
+  document.head.appendChild(style);
+  track.style.animation = "marquee " + Math.round(oneSetWidth / 50) + "s linear infinite";
+});
 
 // Router
 function go(path) {
