@@ -998,7 +998,8 @@ function submitToHubSpot(formEl, formGuid, onSuccess) {
       onSuccess();
     } else {
       res.json().then(function(data) {
-        alert("Something went wrong. Please try again or email us directly.");
+        console.error("HubSpot error:", JSON.stringify(data));
+        alert("HubSpot error: " + (data.message || JSON.stringify(data)));
         btn.disabled = false;
         btn.innerHTML = originalText;
       });
