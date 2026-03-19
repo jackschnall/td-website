@@ -255,6 +255,21 @@ img { max-width:100%; display:block; }
 .form-group textarea { height:auto; padding:8px 12px; resize:vertical; }
 .form-group select { background:#fff; }
 
+/* HubSpot embedded form overrides */
+.hs-form-wrap .hs-form { font-family:inherit !important; }
+.hs-form-wrap .hs-form fieldset { max-width:100% !important; }
+.hs-form-wrap .hs-form .hs-input { width:100% !important; height:44px; border-radius:8px !important; border:1px solid var(--td-border) !important; padding:0 12px !important; font-size:14px !important; font-family:inherit !important; outline:none; transition:border .2s,box-shadow .2s; box-sizing:border-box; }
+.hs-form-wrap .hs-form .hs-input:focus { border-color:var(--td-blue) !important; box-shadow:0 0 0 3px rgba(21,101,216,.15) !important; }
+.hs-form-wrap .hs-form textarea.hs-input { height:auto !important; padding:8px 12px !important; resize:vertical; min-height:100px; }
+.hs-form-wrap .hs-form select.hs-input { background:#fff; }
+.hs-form-wrap .hs-form label { display:block; font-size:14px !important; font-weight:500 !important; margin-bottom:6px !important; color:var(--td-dark) !important; }
+.hs-form-wrap .hs-form .hs-form-field { margin-bottom:20px; }
+.hs-form-wrap .hs-form .hs-submit .hs-button { display:inline-flex; align-items:center; justify-content:center; height:44px; padding:0 28px; background:var(--td-gold) !important; color:#fff !important; border:none !important; border-radius:8px !important; font-size:15px !important; font-weight:600 !important; font-family:inherit !important; cursor:pointer; transition:background .2s; }
+.hs-form-wrap .hs-form .hs-submit .hs-button:hover { background:#c4842f !important; }
+.hs-form-wrap .hs-form .hs-error-msgs { color:#ef4444 !important; font-size:13px !important; margin-top:4px; }
+.hs-form-wrap .hs-form .submitted-message { text-align:center; padding:40px 20px; font-size:18px; color:var(--td-dark); }
+.hs-form-wrap .hs-form fieldset.form-columns-2 .hs-form-field { width:48% !important; }
+
 .contact-sidebar { background:var(--td-bg); border-radius:12px; padding:32px; position:sticky; top:96px; }
 .contact-sidebar h3 { font-size:18px; font-weight:700; margin-bottom:8px; }
 .contact-sidebar > p { font-size:14px; color:var(--td-muted); margin-bottom:24px; }
@@ -768,23 +783,7 @@ svg.icon-sm { width:16px; height:16px; }
         <div>
           <h2 class="font-display">Contact Us</h2>
           <p>Fill out the form below and we&rsquo;ll reach out within one business day.</p>
-          <div id="contactFormWrap">
-            <form id="contactForm" onsubmit="submitForm(event)">
-              <div class="form-row">
-                <div class="form-group"><label>First Name *</label><input name="firstname" required placeholder="Jane"></div>
-                <div class="form-group"><label>Last Name *</label><input name="lastname" required placeholder="Doe"></div>
-              </div>
-              <div class="form-group"><label>Work Email *</label><input name="email" type="email" required placeholder="jane@yourbank.com"></div>
-              <div class="form-row">
-                <div class="form-group"><label>Bank / Institution *</label><input name="company" required placeholder="First National Bank"></div>
-                <div class="form-group"><label>Your Title</label><input name="jobtitle" placeholder="VP of Technology"></div>
-              </div>
-              <div class="form-group"><label>Asset Size</label><select name="asset_size"><option value="">Select asset size range</option><option>Under $500M</option><option>$500M - $1B</option><option>$1B - $5B</option><option>$5B - $10B</option><option>Over $10B</option></select></div>
-              <div class="form-group"><label>What are you most interested in?</label><select name="primary_interest"><option value="">Select your primary interest</option><option>Vendor Database</option><option>Peer Network</option><option>Finding References</option><option>Vendor Rationalization</option><option>All of the Above</option></select></div>
-              <div class="form-group"><label>Anything else?</label><textarea name="message" rows="4" placeholder="Tell us about your current vendor management challenges..."></textarea></div>
-              <button type="submit" class="btn-gold">Request a Demo <svg class="icon icon-sm" viewBox="0 0 24 24" style="margin-left:4px"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg></button>
-            </form>
-          </div>
+          <div id="contactFormWrap" class="hs-form-wrap"></div>
           <div id="contactSuccess" style="display:none">
             <div class="success-box">
               <svg class="icon" style="width:48px;height:48px;color:#10b981;margin:0 auto"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><path d="m9 11 3 3L22 4"/></svg>
@@ -831,24 +830,7 @@ svg.icon-sm { width:16px; height:16px; }
         <div>
           <h2 class="font-display">Request a Reference</h2>
           <p>Fill out the form below and we&rsquo;ll match you with a member bank that fits your profile.</p>
-          <div id="refFormWrap">
-            <form id="refForm" onsubmit="submitRefForm(event)">
-              <div class="form-row">
-                <div class="form-group"><label>First Name *</label><input name="firstname" required placeholder="Jane"></div>
-                <div class="form-group"><label>Last Name *</label><input name="lastname" required placeholder="Doe"></div>
-              </div>
-              <div class="form-group"><label>Work Email *</label><input name="email" type="email" required placeholder="jane@yourbank.com"></div>
-              <div class="form-row">
-                <div class="form-group"><label>Bank / Institution *</label><input name="company" required placeholder="First National Bank"></div>
-                <div class="form-group"><label>Your Title</label><input name="jobtitle" placeholder="VP of Technology"></div>
-              </div>
-              <div class="form-group"><label>Asset Size *</label><select name="asset_size" required><option value="">Select asset size range</option><option>Under $500M</option><option>$500M - $1B</option><option>$1B - $5B</option><option>$5B - $10B</option><option>Over $10B</option></select></div>
-              <div class="form-group"><label>What type of bank would you like to speak with?</label><select name="reference_bank_preference"><option value="">Select preference</option><option>Similar asset size to ours</option><option>Same core banking system</option><option>Same region / market</option><option>No preference</option></select></div>
-              <div class="form-group"><label>What topics are you most interested in discussing?</label><textarea name="reference_topics" rows="4" placeholder="e.g., vendor management experience, onboarding process, ROI, specific use cases, peer networking..."></textarea></div>
-              <div class="form-group"><label>Anything else we should know?</label><textarea name="message" rows="3" placeholder="Any specific vendors, challenges, or questions you'd like the reference to address..."></textarea></div>
-              <button type="submit" class="btn-gold">Submit Request <svg class="icon icon-sm" viewBox="0 0 24 24" style="margin-left:4px"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg></button>
-            </form>
-          </div>
+          <div id="refFormWrap" class="hs-form-wrap"></div>
           <div id="refSuccess" style="display:none">
             <div class="success-box">
               <svg class="icon" style="width:48px;height:48px;color:#10b981;margin:0 auto"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><path d="m9 11 3 3L22 4"/></svg>
@@ -970,74 +952,23 @@ function closeMob() {
 }
 
 // HubSpot Forms API submission
-var HS_PORTAL = "23570965";
-var HS_CONTACT_FORM = "cdb4d7b9-8187-47be-99d1-e539f9aa28f8";
-var HS_REF_FORM = "206d9476-48b6-4dc8-bfa3-3a0cc31358d1";
-
-function submitToHubSpot(formEl, formGuid, onSuccess) {
-  var btn = formEl.querySelector("button[type=submit]");
-  var originalText = btn.innerHTML;
-  btn.disabled = true;
-  btn.innerHTML = "Submitting...";
-
-  var fields = [];
-  var inputs = formEl.querySelectorAll("input[name], select[name], textarea[name]");
-  for (var i = 0; i < inputs.length; i++) {
-    if (inputs[i].value) {
-      fields.push({ name: inputs[i].name, value: inputs[i].value });
-    }
-  }
-
-  console.log("Submitting to HubSpot:", JSON.stringify({ fields: fields }, null, 2));
-  fetch("https://api.hsforms.com/submissions/v3/integration/submit/" + HS_PORTAL + "/" + formGuid, {
-    method: "POST",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({
-      fields: fields,
-      context: {
-        hutk: (document.cookie.match(/hubspotutk=([^;]*)/) || [])[1] || undefined,
-        pageUri: window.location.href,
-        pageName: document.title
-      }
-    })
-  }).then(function(res) {
-    return res.json().then(function(data) { return { ok: res.ok, status: res.status, data: data }; });
-  }).then(function(result) {
-    console.log("HubSpot response:", result.status, JSON.stringify(result.data, null, 2));
-    if (result.ok) {
-      onSuccess();
-    } else {
-      var data = result.data;
-      console.error("HubSpot error:", JSON.stringify(data, null, 2));
-      var msg = data.message || "";
-      if (data.errors) msg += "\n" + data.errors.map(function(e){ return e.message; }).join("\n");
-      alert("HubSpot error:\n" + msg);
-      btn.disabled = false;
-      btn.innerHTML = originalText;
-    }
-  }).catch(function() {
-    alert("Network error. Please check your connection and try again.");
-    btn.disabled = false;
-    btn.innerHTML = originalText;
+// Load HubSpot forms SDK and create embedded forms
+var hsScript = document.createElement("script");
+hsScript.src = "//js.hsforms.net/forms/embed/v2.js";
+hsScript.charset = "utf-8";
+hsScript.onload = function() {
+  hbspt.forms.create({
+    portalId: "23570965",
+    formId: "cdb4d7b9-8187-47be-99d1-e539f9aa28f8",
+    target: "#contactFormWrap"
   });
-}
-
-// Contact form
-function submitForm(e) {
-  e.preventDefault();
-  submitToHubSpot(document.getElementById("contactForm"), HS_CONTACT_FORM, function() {
-    document.getElementById("contactForm").style.display = "none";
-    document.getElementById("contactSuccess").style.display = "block";
+  hbspt.forms.create({
+    portalId: "23570965",
+    formId: "206d9476-48b6-4dc8-bfa3-3a0cc31358d1",
+    target: "#refFormWrap"
   });
-}
-// Reference form
-function submitRefForm(e) {
-  e.preventDefault();
-  submitToHubSpot(document.getElementById("refForm"), HS_REF_FORM, function() {
-    document.getElementById("refForm").style.display = "none";
-    document.getElementById("refSuccess").style.display = "block";
-  });
-}
+};
+document.head.appendChild(hsScript);
 </script>
 </body>
 </html>
