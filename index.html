@@ -991,6 +991,7 @@ function submitToHubSpot(formEl, formGuid, onSuccess) {
   fields.push({ objectTypeId: "0-5", name: "subject", value: subject });
   fields.push({ objectTypeId: "0-5", name: "content", value: vals.message || vals.reference_topics || "Form submission" });
 
+  console.log("Submitting to HubSpot:", JSON.stringify({ fields: fields }, null, 2));
   fetch("https://api.hsforms.com/submissions/v3/integration/submit/" + HS_PORTAL + "/" + formGuid, {
     method: "POST",
     headers: { "Content-Type": "application/json" },
@@ -999,17 +1000,19 @@ function submitToHubSpot(formEl, formGuid, onSuccess) {
       context: { pageUri: window.location.href, pageName: document.title }
     })
   }).then(function(res) {
-    if (res.ok) {
+    return res.json().then(function(data) { return { ok: res.ok, status: res.status, data: data }; });
+  }).then(function(result) {
+    console.log("HubSpot response:", result.status, JSON.stringify(result.data, null, 2));
+    if (result.ok) {
       onSuccess();
     } else {
-      res.json().then(function(data) {
-        console.error("HubSpot error:", JSON.stringify(data, null, 2));
-        var msg = data.message || "";
-        if (data.errors) msg += "\n" + data.errors.map(function(e){ return e.message; }).join("\n");
-        alert("HubSpot error:\n" + msg);
-        btn.disabled = false;
-        btn.innerHTML = originalText;
-      });
+      var data = result.data;
+      console.error("HubSpot error:", JSON.stringify(data, null, 2));
+      var msg = data.message || "";
+      if (data.errors) msg += "\n" + data.errors.map(function(e){ return e.message; }).join("\n");
+      alert("HubSpot error:\n" + msg);
+      btn.disabled = false;
+      btn.innerHTML = originalText;
     }
   }).catch(function() {
     alert("Network error. Please check your connection and try again.");
