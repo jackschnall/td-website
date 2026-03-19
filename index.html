@@ -979,12 +979,17 @@ function submitToHubSpot(formEl, formGuid, onSuccess) {
   btn.innerHTML = "Submitting...";
 
   var fields = [];
+  var vals = {};
   var inputs = formEl.querySelectorAll("input[name], select[name], textarea[name]");
   for (var i = 0; i < inputs.length; i++) {
     if (inputs[i].value) {
       fields.push({ name: inputs[i].name, value: inputs[i].value });
+      vals[inputs[i].name] = inputs[i].value;
     }
   }
+  var subject = (vals.firstname || "") + " " + (vals.lastname || "") + " from " + (vals.company || "Unknown");
+  fields.push({ objectTypeId: "0-5", name: "subject", value: subject });
+  fields.push({ objectTypeId: "0-5", name: "content", value: vals.message || vals.reference_topics || "Form submission" });
 
   fetch("https://api.hsforms.com/submissions/v3/integration/submit/" + HS_PORTAL + "/" + formGuid, {
     method: "POST",
