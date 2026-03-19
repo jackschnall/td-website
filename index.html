@@ -998,8 +998,10 @@ function submitToHubSpot(formEl, formGuid, onSuccess) {
       onSuccess();
     } else {
       res.json().then(function(data) {
-        console.error("HubSpot error:", JSON.stringify(data));
-        alert("HubSpot error: " + (data.message || JSON.stringify(data)));
+        console.error("HubSpot error:", JSON.stringify(data, null, 2));
+        var msg = data.message || "";
+        if (data.errors) msg += "\n" + data.errors.map(function(e){ return e.message; }).join("\n");
+        alert("HubSpot error:\n" + msg);
         btn.disabled = false;
         btn.innerHTML = originalText;
       });
