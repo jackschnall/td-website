@@ -536,7 +536,7 @@ svg.icon-sm { width:16px; height:16px; }
   </section>
 
   <!-- Vendor Database -->
-  <section class="feature-section">
+  <section id="vendor-database" class="feature-section">
     <div class="container"><div class="feature-grid">
       <div class="feature-text">
         <div class="feature-icon-box"><svg class="icon-lg icon"><ellipse cx="12" cy="5" rx="9" ry="3"/><path d="M3 5V19A9 3 0 0 0 21 19V5"/><path d="M3 12A9 3 0 0 0 21 12"/></svg></div>
@@ -556,7 +556,7 @@ svg.icon-sm { width:16px; height:16px; }
   </section>
 
   <!-- Peer Network -->
-  <section class="feature-section alt">
+  <section id="peer-network" class="feature-section alt">
     <div class="container"><div class="feature-grid reverse">
       <div class="feature-text">
         <div class="feature-icon-box"><svg class="icon-lg icon"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg></div>
@@ -576,7 +576,7 @@ svg.icon-sm { width:16px; height:16px; }
   </section>
 
   <!-- References -->
-  <section class="feature-section">
+  <section id="references" class="feature-section">
     <div class="container"><div class="feature-grid">
       <div class="feature-text">
         <div class="feature-icon-box"><svg class="icon-lg icon"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg></div>
@@ -872,22 +872,22 @@ svg.icon-sm { width:16px; height:16px; }
         <div class="footer-col">
           <h4>Product</h4>
           <a href="#/platform" onclick="go('/platform');return false">Platform Overview</a>
-          <a href="#/platform" onclick="go('/platform');return false">Vendor Database</a>
-          <a href="#/platform" onclick="go('/platform');return false">Peer Network</a>
-          <a href="#/platform" onclick="go('/platform');return false">References</a>
+          <a href="#/platform" onclick="go('/platform');scrollToSection('vendor-database');return false">Vendor Database</a>
+          <a href="#/platform" onclick="go('/platform');scrollToSection('peer-network');return false">Peer Network</a>
+          <a href="#/platform" onclick="go('/platform');scrollToSection('references');return false">References</a>
         </div>
         <div class="footer-col">
           <h4>Company</h4>
           <a href="#/about" onclick="go('/about');return false">About Us</a>
           <a href="#/contact" onclick="go('/contact');return false">Contact</a>
-          <a href="#">Privacy Policy</a>
-          <a href="#">Terms of Use</a>
+          <a href="https://www.truedigitalgroup.com/privacy-policy" target="_blank">Privacy Policy</a>
+          <a href="https://www.truedigitalgroup.com/terms-of-use" target="_blank">Terms of Use</a>
         </div>
         <div class="footer-col">
           <h4>Resources</h4>
           <a href="#/contact" onclick="go('/contact');return false">Schedule a Demo</a>
           <a href="https://app.truedigitalgroup.com">Log In</a>
-          <a href="https://app.truedigitalgroup.com/signup">Sign Up</a>
+          <a href="https://app.truedigitalgroup.com/signup" target="_blank">Sign Up</a>
         </div>
       </div>
     </div>
@@ -922,6 +922,12 @@ requestAnimationFrame(function() {
 function go(path) {
   window.location.hash = path;
   window.scrollTo(0, 0);
+}
+function scrollToSection(id) {
+  setTimeout(function() {
+    var el = document.getElementById(id);
+    if (el) el.scrollIntoView({ behavior: "smooth", block: "start" });
+  }, 100);
 }
 function route() {
   var hash = window.location.hash.slice(1) || "/";
